@@ -136,20 +136,19 @@
 h1 {
   font-size: 42px;
   line-height: 50px;
-  margin: 75px 0px 0px 0px;
+  margin: 15px 0px 0px 0px;
 }
 
 h2 {
   font-size: 22px;
   line-height: 25px;
   margin: 0px;
-  padding: 12.5px 25px 12.5px 25px;
+  padding: 10px;
 }
 
 h3 {
   font-size: 22px;
   line-height: 25px;
-  margin: 40px 0px 10px 0px;
 }
 
 h4 {
@@ -186,7 +185,7 @@ h5 {
 .panel-heading {
   border-radius: 3.3px;
   padding: 0px;
-  margin: 75px 0px 0px 0px;
+  margin: 45px 0px 0px 0px;
 }
 
 .btn {
