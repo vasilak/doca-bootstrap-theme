@@ -16,6 +16,68 @@ const getLinks = (links, search) =>
       return true;
     });
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+var createSideBar = function(schemas, search, activeId) {
+  var schemasList = schemas.filter(function (schema) {
+    return !schema.get('hidden');
+  }).valueSeq();
+
+  var schemasByNamespace = {};
+  // Get event namespaces
+  schemasList.forEach((schema) => {
+    // Check if the schema should be shown (based on the current search)
+    if (search && schema.get('title').toLowerCase().indexOf(search.toLowerCase()) === -1) {
+      return;
+    }
+
+    // Each event should be prefixed by the namespace, then a dot ('.') and then the event name
+    var indexOfDot = schema.get('title').indexOf('.');
+    if (indexOfDot > -1) {
+      var title = schema.get('title').slice(0, indexOfDot);
+      if (!schemasByNamespace[title]) {
+        schemasByNamespace[title] = [];
+      }
+      schemasByNamespace[title].push(schema);
+    }
+  });
+
+  var elements = [];
+  for (var namespace in schemasByNamespace) {
+    var namespacedSchemas = schemasByNamespace[namespace];
+
+    var element = React.createElement(
+      'ul',
+      { className: 'sidebar-nav', key: namespace },
+      React.createElement(
+        'li',
+        { className: 'sidebar-category' },
+        capitalizeFirstLetter(namespace)
+      ),
+      namespacedSchemas.map(function (schema) {
+        return React.createElement(
+          'li',
+          {
+            key: schema.get('html_id'),
+            className: schema.get('html_id') === activeId ? 'active' : ''
+          },
+          React.createElement(
+            'a',
+            { href: '#' + schema.get('html_id') },
+            schema.get('title')
+          )
+        );
+      })
+    );
+
+    elements.push(element);
+  }
+
+  return elements;
+};
+
 class Sidebar extends Component {
 
   static propTypes = {
@@ -112,6 +174,9 @@ class Sidebar extends Component {
             onChange={this.handleSearchChange}
           />
         </div>
+
+        {createSideBar(schemas, search, activeId)}
+/*
         {schemas.filter(schema => !schema.get('hidden')).valueSeq().map(schema =>
           (getLinks(schema.get('links'), search).count() > 0 ?
             <ul className="sidebar-nav" key={schema.get('id')}>
@@ -128,7 +193,7 @@ class Sidebar extends Component {
               )}
             </ul>
           : null)
-        )}
+        )}*/
       </nav>
     );
   }
