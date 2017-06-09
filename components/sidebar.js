@@ -176,24 +176,6 @@ class Sidebar extends Component {
         </div>
 
         {createSideBar(schemas, search, activeId)}
-/*
-        {schemas.filter(schema => !schema.get('hidden')).valueSeq().map(schema =>
-          (getLinks(schema.get('links'), search).count() > 0 ?
-            <ul className="sidebar-nav" key={schema.get('id')}>
-              <li className="sidebar-category">{schema.get('title')}</li>
-              {getLinks(schema.get('links'), search).valueSeq().map(link =>
-                <li
-                  key={link.get('html_id')}
-                  className={link.get('html_id') === activeId ? 'active' : ''}
-                >
-                  <a href={`#${link.get('html_id')}`}>
-                    {link.get('title')}
-                  </a>
-                </li>
-              )}
-            </ul>
-          : null)
-        )}*/
       </nav>
     );
   }
