@@ -232,7 +232,7 @@ pre {
 .table>tfoot>tr>th,
 .table>thead>tr>td,
 .table>thead>tr>th {
-  padding: 12.5px 25px 12.5px 0px;
+  padding: 10px;
 }
 
 .constraints {
